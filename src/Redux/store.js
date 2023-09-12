@@ -6,4 +6,5 @@ const store = configureStore({
     employeeStore: employeeSlice.reducer,
   },
 });
+
 export default store;

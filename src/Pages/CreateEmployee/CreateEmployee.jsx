@@ -56,7 +56,7 @@ const CreateEmployee = () => {
     if (isFormValid() === true) {
       // Soumettez le formulaire ou effectuez d'autres actions
       setFormOK(true);
-      // document.getElementById("create-employee").reset();
+      document.getElementById("create-employee").reset();
     }
   };
 
@@ -68,18 +68,17 @@ const CreateEmployee = () => {
       setDisplayModal(true);
       setModalReset(true);
       setFormOK(false);
-      //TODO a décommenter
-      // setEmployee({
-      //     firstName: '',
-      //     lastName: '',
-      //     dateOfBirth: '',
-      //     startDate: '',
-      //     street: '',
-      //     city: '',
-      //     state: States[0].abbreviation,
-      //     zipCode: '',
-      //     department: Departments[0].abbreviation
-      // });
+      setEmployee({
+        firstName: "",
+        lastName: "",
+        dateOfBirth: "",
+        startDate: "",
+        street: "",
+        city: "",
+        state: States[0].abbreviation,
+        zipCode: "",
+        department: Departments[0].abbreviation,
+      });
     }
   }, [formOK, errorForm, employee, dispatch]);
 
@@ -126,6 +125,7 @@ const CreateEmployee = () => {
               name="firstName"
               onChange={handleFormChange}
               placeholder="Firstname"
+              autoComplete={"firstName"}
             />
 
             <label htmlFor="last-name">Last Name</label>
@@ -134,6 +134,8 @@ const CreateEmployee = () => {
               id="last-name"
               name="lastName"
               onChange={handleFormChange}
+              placeholder="Lastname"
+              autoComplete={"lastName"}
             />
 
             <label htmlFor="date-of-birth">Date of Birth</label>
@@ -149,6 +151,7 @@ const CreateEmployee = () => {
 
             <label htmlFor="start-date">Start Date</label>
             <input
+              name={"startDate"}
               type="date"
               className="date-picker-input"
               id="start-date"
@@ -165,6 +168,8 @@ const CreateEmployee = () => {
                 type="text"
                 name="street"
                 onChange={handleFormChange}
+                placeholder={"Street"}
+                autoComplete={"street"}
               />
 
               <label htmlFor="city">City</label>
@@ -173,6 +178,8 @@ const CreateEmployee = () => {
                 type="text"
                 name="city"
                 onChange={handleFormChange}
+                placeholder={"City"}
+                autoComplete={"city"}
               />
 
               <label htmlFor="state">State</label>
@@ -190,6 +197,8 @@ const CreateEmployee = () => {
                 type="number"
                 name="zipCode"
                 onChange={handleFormChange}
+                placeholder={"Zip Code"}
+                autoComplete={"off"}
               />
             </fieldset>
 

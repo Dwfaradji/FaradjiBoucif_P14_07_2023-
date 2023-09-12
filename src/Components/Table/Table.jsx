@@ -122,6 +122,8 @@ const Table = ({ data, headers }) => {
         <div className="select-option">
           <label htmlFor="number-show"> Show</label>
           <select
+            id="number-show"
+            name="number-show"
             data-testid={"numberShow"}
             value={numberEmployee}
             onChange={(e) => setNumberEmployee(e.target.value)}
@@ -137,9 +139,9 @@ const Table = ({ data, headers }) => {
           <label htmlFor="search-employee"> Search</label>
           <input
             id="search-employee"
+            name="search-employee"
             onChange={filterEmployee}
             type="search"
-            name="search-employee"
           />
         </div>
       </div>
