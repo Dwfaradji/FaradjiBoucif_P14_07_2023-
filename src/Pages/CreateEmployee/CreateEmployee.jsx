@@ -51,7 +51,6 @@ const CreateEmployee = () => {
 
   //send the data to the redux store
   const saveEmployee = (e) => {
-    console.log("saveEmployee", employee);
     e.preventDefault();
     // verifier si les champs sont remplis grâce à une boucle si un champ est vide alors, on affiche une erreur et on ne valide pas le formulaire
     if (isFormValid() === true) {
@@ -64,7 +63,6 @@ const CreateEmployee = () => {
   useEffect(() => {
     if (formOK === true) {
       //send data to the redux store
-      console.log(employee);
       dispatch({ type: "employee/addEmployee", payload: employee });
       setDisplayModal(true);
       setModalReset(true);
@@ -85,7 +83,6 @@ const CreateEmployee = () => {
 
   /* Form */
   const handleFormChange = (event) => {
-    console.log(event);
     setEmployee({
       ...employee,
       [event.target.name]: event.target.value,
