@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 const ListEmployee = () => {
   const dataEmployee = useSelector((state) => state.employeeStore.employee);
-
   const headers = [
     { name: "First Name", data: "firstName" },
     { name: "Last Name", data: "lastName" },

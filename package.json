@@ -1,6 +1,7 @@
 {
   "name": "projet_14",
   "version": "0.1.0",
+  "nodeVersion": "19.9.0",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",

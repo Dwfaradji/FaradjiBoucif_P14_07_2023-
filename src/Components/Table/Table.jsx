@@ -31,7 +31,6 @@ const Table = ({ data, headers }) => {
     if (!sortConfig) {
       return data;
     }
-
     return (
       data &&
       [...data].sort((a, b) => {
@@ -77,6 +76,7 @@ const Table = ({ data, headers }) => {
         return Object.keys(item).some((key) => {
           const itemValue =
             typeof item[key] === "string" ? item[key] : String(item[key]);
+          console.log(itemValue);
           return itemValue.toLowerCase().includes(value);
         });
       });

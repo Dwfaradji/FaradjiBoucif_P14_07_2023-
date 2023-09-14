@@ -3,19 +3,13 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import ListEmployee from "../Pages/ListEmployee/ListEmployee";
 import Table from "../Components/Table/Table";
 import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
-import { employeeSlice } from "../Redux/employeeSlice";
+
+import store from "../Redux/store";
 
 const renderWithProvider = (component) => {
-  return render(<Provider store={store}>{component}</Provider>);
+  render(<Provider store={store}>{component}</Provider>);
 };
-
-const store = configureStore({
-  reducer: employeeSlice,
-  initialState: [],
-});
-
-// donnes mocker pour les informations de l'employer à afficher dans le tableau
+//@TODO : Mettre en place un fichier de mock pour les données.
 const mockEmployees = [
   {
     id: 1,
@@ -254,7 +248,7 @@ describe("En tant qu'employer je veux effectuer une recherche, Afin de trouver u
     // Effacez l'entrée de recherche pour afficher à nouveau toutes les données
     fireEvent.change(searchInput, { target: { value: "" } });
 
-    // "John" et "Johny" doivent être affichés à nouveau
+    // "John", "Johny", "Ilane" doivent être affichés à nouveau
     expect(screen.getByText("John")).toBeInTheDocument();
     expect(screen.getByText("Johny")).toBeInTheDocument();
     expect(screen.getByText("Ilane")).toBeInTheDocument();
@@ -264,7 +258,7 @@ describe("En tant qu'employer je veux effectuer une recherche, Afin de trouver u
 describe("En tant qu'employer je veux effectuer un tri par le nombre d'éléments a afficher, Afin de contrôler le nombre d'éléments a afficher", () => {
   test("Étant donné que le tableau est rendu, Quand on effectue un tri par le nombre d'éléments sélectionner a afficher, ALORS le nombre d'éléments a afficher doit être égale au nombre d'éléments a afficher", () => {
     render(<Table data={mockEmployees} headers={headers} />);
-    // Sélectionnez l'élément de select par son attribut mockEmployees-testid
+    // Sélectionnez l'élément de select par son attribut
     const selectElement = screen.getByTestId("numberShow");
     // Vérifiez que l'élément select est présent dans le DOM
     expect(selectElement).toBeInTheDocument();
@@ -285,7 +279,7 @@ describe("En tant qu'employer je veux effectuer un tri par le nombre d'élément
     expect(screen.getByText("Michael")).toBeInTheDocument();
     expect(screen.getByText("Sophia")).toBeInTheDocument();
 
-    // //On vérifie que le 11ᵉ élément n'est pas affichée
+    // On vérifie que le 11ᵉ élément n'est pas affichée
     expect(screen.queryByText("David")).not.toBeInTheDocument();
   });
 });
@@ -293,13 +287,16 @@ describe("En tant qu'employer je veux effectuer un tri par le nombre d'élément
 describe("En tant qu'employer je veux effectuer un tri par ordre alphabétique, Afin de contrôler l'ordre d'affichage des éléments", () => {
   test("Étant donné que le tableau est bien rendu, Quand je clique sur le trie ce la doit trier par nom croissant", async () => {
     render(<Table data={mockEmployees} headers={headers} />);
+
     fireEvent.click(screen.getByText("First Name"));
     // Récupérer les valeurs des éléments triés (First Name)
     const sortedData = [...mockEmployees].sort((a, b) =>
       a.firstName.localeCompare(b.firstName),
     );
     // Récupérer les valeurs triées
-    const sortedDataValues = sortedData.map((element) => element.firstName);
+    const sortedDataValues = sortedData
+      .map((element) => element.firstName)
+      .slice(0, 10);
     // Vérifier que toutes les valeurs triées sont présentes
     const sortedValuesVerif = screen.getAllByTestId("arrayData");
     const compareValueSorted = [];
@@ -313,12 +310,13 @@ describe("En tant qu'employer je veux effectuer un tri par ordre alphabétique, 
     render(<Table data={mockEmployees} headers={headers} />);
     fireEvent.click(screen.getByText("First Name"));
     fireEvent.click(screen.getByText("First Name"));
-    // Récupérer les valeurs des éléments triés (First Name)
     const sortedData = [...mockEmployees].sort((a, b) =>
       b.firstName.localeCompare(a.firstName),
     );
     // Récupérer les valeurs triées
-    const sortedDataValues = sortedData.map((element) => element.firstName);
+    const sortedDataValues = sortedData
+      .map((element) => element.firstName)
+      .slice(0, 10);
 
     const sortedValuesVerif = screen.getAllByTestId("arrayData");
     const compareValueSorted = [];
